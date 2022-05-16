@@ -1,0 +1,6 @@
+{
+    "inventory" : [
+        {"item_name" : "jacket", "quantity" : 16, "for_sale" : null},
+        {"item_name" : "shoes", "quantity" : 54, "for_sale" : false}
+    ]
+}
