@@ -12,10 +12,9 @@ with open("inventory_data.json") as f:
         inventory.append(copy.deepcopy(item))
         num_items += 1
 
-print("Loaded JSON data")
-
-print(inventory)
-print(num_items)
+# print("Loaded JSON data")
+# print(inventory)
+# print(num_items)
 
 
 

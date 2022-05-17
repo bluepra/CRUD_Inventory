@@ -1,0 +1,40 @@
+.inventory-table {
+    border-collapse: collapse;    
+    min-width: 400px;
+    margin: 25px ;
+    font-family: 'Gill Sans MT';
+    font-size: 1em;
+    box-shadow: 3px 3px 4px grey;
+}
+
+.inventory-table thead tr{
+    /*border-bottom: 2px solid lightsalmon;*/
+    background-color: #4790FF;
+    text-align: left;    
+}
+
+.inventory-table th,
+.inventory-table td {
+    padding: 10px 10px;
+}
+
+.inventory-table tbody tr:not(:last-child)  {
+    border-bottom: 1px solid #EEEEEE;
+}
+
+.inventory-table tbody tr:nth-of-type(even)  {
+    background-color: #EEEEEE;
+}
+
+.inventory-table tbody tr:last-child  {
+    border-bottom: 3px solid #4790FF;
+}
+
+.title{
+    text-align: center;
+    font-family: 'Gill Sans MT';
+    font-weight: 500;
+}
+
+
+
