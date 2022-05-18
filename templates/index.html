@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="refresh" content="3" > -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/style.css">
+    <title>Prannav's Inventory</title>
+</head>
+<body>
+    <h1 class="title">PRANNAV'S INVENTORY</h1>
+
+    <!-- Form that lets the user add more entries -->
+    <div>
+        <table class = "form-table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price ($)</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text" id="item_name" name="item_name">
+                    </td>
+                    <td>
+                        <input type="text" id="quantity" name="quantity">
+                    </td>
+                    <td>
+                        <input type="integer" id="price" name="price">
+                    </td>
+                    <td>
+                        <button class = "button" type="button">Add</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>        
+
+    <!-- Inventory Table with entries -->
+    <table class = "inventory-table" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Price ($)</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td>{{row['id']}}</td>
+                    <td>{{row['item']}}</td>
+                    <td>{{row['quantity']}}</td>
+                    <td>{{row['price']}}</td>
+                    <td><button class = "button" onclick="editClick()">Edit</button></td>
+                    <td><button class = "button" onclick="deleteClick()">Del</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{{url_for('static', filename='script.js')}}"></script>
+</body>
+</html>
