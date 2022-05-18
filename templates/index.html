@@ -1,45 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!-- <meta http-equiv="refresh" content="3" > -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/style.css">
-    <title>Prannav's Inventory</title>
-</head>
-<body>
-    <h1 class="title">PRANNAV'S INVENTORY</h1>
+{% extends 'base.html' %}
+
+{% block body %}
+<h1 class="title">PRANNAV'S INVENTORY</h1>
 
     <!-- Form that lets the user add more entries -->
-    <div>
-        <table class = "form-table">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Quantity</th>
-                    <th>Price ($)</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="text" id="item_name" name="item_name">
-                    </td>
-                    <td>
-                        <input type="text" id="quantity" name="quantity">
-                    </td>
-                    <td>
-                        <input type="integer" id="price" name="price">
-                    </td>
-                    <td>
-                        <button class = "button" type="button">Add</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>        
+    <div align = "center">
+        <form action="", method="post">
+            <label for="item_input">Item:</label><br>
+            <input type="text" id="item_input" name = "item_input"><br>
+
+            <label for="quantity_input">Quantity:</label><br>
+            <input type="text" id="quantity_input" name="quantity_input"><br>
+
+            <label for="price_input">Price:</label><br>
+            <input type="text" id="price_input" name="price_input"><br><br>
+            
+            <input type="submit" value="Submit">
+          </form>
+    </div>          
 
     <!-- Inventory Table with entries -->
     <table class = "inventory-table" >
@@ -66,7 +44,4 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <script src="{{url_for('static', filename='script.js')}}"></script>
-</body>
-</html>
+{% endblock %}

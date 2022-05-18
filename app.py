@@ -1,33 +1,29 @@
-from flask import Flask, render_template
-import random
+from flask import Flask, render_template, request, url_for
 
+# Global field that increments everytime new entry is added
+entry_id = 1
 
 # List of inventory entries (dictionaries)
-inventory = [
-	{"id": 1,
-	"item": "Ball",
-	"quantity" : 20,
-	"price": 3},
-	{"id": 2,
-	"item": "Jacket",
-	"quantity" : 5,
-	"price": 60},
-	{"id": 3,
-	"item": "Table",
-	"quantity" : 15,
-	"price": 400},
-	{"id": 3,
-	"item": "Table",
-	"quantity" : 15,
-	"price": 400}
-		 ]
-
+inventory = []
 
 app = Flask(__name__)
 
 # Default page
-@app.route('/')  
+@app.route('/', methods = ["POST", "GET"])  
 def home():
+	global entry_id
+	# User submitted an entry
+	if request.method ==  "POST":
+		new_entry = {}
+		new_entry['id'] = entry_id
+		entry_id += 1
+
+		new_entry["item"] = request.form['item_input']
+		new_entry["quantity"] = request.form['quantity_input']
+		new_entry["price"] = request.form['price_input']
+
+		inventory.append(new_entry)
+
 	return render_template("index.html", rows = inventory)
 
 
