@@ -1,21 +1,23 @@
 {% extends 'base.html' %}
 
+{% block page_title %} <title>Inventory</title> {% endblock %}
+
 {% block body %}
 <h1 class="title">PRANNAV'S INVENTORY</h1>
 
     <!-- Form that lets the user add more entries -->
-    <div align = "center">
+    <div class = "add_form">
         <form action="", method="post">
-            <label for="item_input">Item:</label><br>
-            <input type="text" id="item_input" name = "item_input"><br>
+            <!-- <label for="item_input">Item:</label><br> -->
+            <input type="text" id="item_input" name = "item_input" placeholder="Name"><br>
 
-            <label for="quantity_input">Quantity:</label><br>
-            <input type="text" id="quantity_input" name="quantity_input"><br>
+            <!-- <label for="quantity_input">Quantity:</label><br> -->
+            <input type="text" id="quantity_input" name="quantity_input" placeholder="Quantity"><br>
 
-            <label for="price_input">Price:</label><br>
-            <input type="text" id="price_input" name="price_input"><br><br>
+            <!-- <label for="price_input">Price:</label><br> -->
+            <input type="text" id="price_input" name="price_input" placeholder="Price"><br><br>
             
-            <input type="submit" value="Submit">
+            <input type="submit" value="Add">
           </form>
     </div>          
 

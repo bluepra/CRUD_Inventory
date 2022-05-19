@@ -64,13 +64,11 @@
     border-bottom: 3px solid #4790FF;
 }
 
-/*
-.inventory-table tbody tr:active-row {
-    font-weight: bold;
-    color: #1A3662;
-}*/
+.add_form {
+    text-align: center
+}
 
-.title{
+.title {
     text-align: center;
     font-family: 'Gill Sans MT';
     font-weight: 500;

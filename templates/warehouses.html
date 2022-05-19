@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block page_title %} <title>Warehouses</title> {% endblock %}
+
+{% block body %}
+<h1 class="title">PRANNAV'S WAREHOUSES</h1>
+
+    <!-- Form that lets the user add more entries -->
+    <div class = "add_form">
+        <form action="", method="post">
+            <label for="w_name_input">Name:</label><br>
+            <input type="text" id="w_name_input" name = "w_name_input"><br>
+
+            <label for="city_input">City:</label><br>
+            <input type="text" id="city_input" name="city_input"><br>
+
+            <label for="state_input">State:</label><br>
+            <input type="text" id="state_input" name="state_input"><br><br>
+            
+            <input type="submit" value="Submit">
+          </form>
+    </div>          
+
+    <!-- Inventory Table with entries -->
+    <table class = "inventory-table" >
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>City</th>
+                <th>State</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in rows %}
+                <tr>
+                    <td>{{row['id']}}</td>
+                    <td>{{row['name']}}</td>
+                    <td>{{row['city']}}</td>
+                    <td>{{row['state']}}</td>
+                    <td><button class = "button" onclick="editClick()">Edit</button></td>
+                    <td><button class = "button" onclick="deleteClick()">Del</button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

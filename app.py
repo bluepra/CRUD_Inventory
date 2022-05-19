@@ -1,22 +1,32 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, redirect, render_template, request
+from flask_sqlalchemy import SQLAlchemy
 
-# Global field that increments everytime new entry is added
-entry_id = 1
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app) 
+
+# Global fields that increments everytime new entry is added
+inventory_entry_id = 1
+warehouse_entry_id = 1
 
 # List of inventory entries (dictionaries)
 inventory = []
-
-app = Flask(__name__)
+# List of warehouse entries (dictionaries)
+warehouses = []
 
 # Default page
-@app.route('/', methods = ["POST", "GET"])  
+@app.route('/', methods = ["POST", "GET"])
+@app.route('/inventory', methods = ["POST", "GET"])  
 def home():
-	global entry_id
+	global inventory_entry_id
+	if request.method == "GET":
+		return render_template("index.html", rows = inventory)
 	# User submitted an entry
-	if request.method ==  "POST":
+	elif request.method ==  "POST":
 		new_entry = {}
-		new_entry['id'] = entry_id
-		entry_id += 1
+		new_entry['id'] = inventory_entry_id
+		inventory_entry_id += 1
 
 		new_entry["item"] = request.form['item_input']
 		new_entry["quantity"] = request.form['quantity_input']
@@ -24,8 +34,32 @@ def home():
 
 		inventory.append(new_entry)
 
-	return render_template("index.html", rows = inventory)
+		return redirect("/")
 
+
+	
+
+# Default page
+@app.route("/warehouses", methods = ["POST", "GET"])  
+def warehouses_page():
+	global warehouse_entry_id
+
+	if request.method == "GET":
+		return render_template("warehouses.html", rows = warehouses)
+	elif request.method ==  "POST":
+		new_entry = {}
+		new_entry["id"] = warehouse_entry_id
+		warehouse_entry_id += 1
+
+		new_entry["name"] = request.form['w_name_input']
+		new_entry["city"] = request.form['city_input']
+		new_entry["state"] = request.form['state_input']
+
+		warehouses.append(new_entry)
+
+		return redirect("/warehouses")
+
+	
 
 if __name__ == "__main__":  
 	app.run(debug = True)
