@@ -2,63 +2,80 @@ from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+# Database Link
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app) 
+db = SQLAlchemy(app)
 
-# Global fields that increments everytime new entry is added
-inventory_entry_id = 1
-warehouse_entry_id = 1
+# Models for the Database
+class Item(db.Model):
+	pid = db.Column(db.Integer, primary_key = True) # Product/Item ID - primary key
+	name = db.Column(db.String(100), nullable = False) # Item Name
+	quantity = db.Column(db.Integer, nullable = False) # Quantity
+	price = db.Column(db.Float, nullable = True) # Price of item
 
-# List of inventory entries (dictionaries)
-inventory = []
-# List of warehouse entries (dictionaries)
-warehouses = []
+	def __repr__(self):
+		return f"Item('{self.pid}', '{self.name}')"
+
+class Warehouse(db.Model):
+	wid = db.Column(db.Integer, primary_key = True) # Warehouse ID - primary key
+	name = db.Column(db.String(100), nullable = False) # Warehouse Name
+	city = db.Column(db.String(50)) # Quantity
+	state = db.Column(db.String(50)) # Price of item
+
+	def __repr__(self):
+		return f"Warehouse('{self.wid}', '{self.name}')"
 
 # Default page
 @app.route('/', methods = ["POST", "GET"])
-@app.route('/inventory', methods = ["POST", "GET"])  
-def home():
-	global inventory_entry_id
+def inventory():
 	if request.method == "GET":
+		inventory = db.session.query(Item).all()
 		return render_template("index.html", rows = inventory)
+	
 	# User submitted an entry
 	elif request.method ==  "POST":
-		new_entry = {}
-		new_entry['id'] = inventory_entry_id
-		inventory_entry_id += 1
+		new_item_name = request.form['item_input']
+		new_item_quantity = request.form['quantity_input']
+		new_item_price = request.form['price_input']
 
-		new_entry["item"] = request.form['item_input']
-		new_entry["quantity"] = request.form['quantity_input']
-		new_entry["price"] = request.form['price_input']
+		# Create the new database row - new_item
+		new_item = Item(name = new_item_name, quantity = new_item_quantity, price = new_item_price)
 
-		inventory.append(new_entry)
+		# Add new entry to database
+		try:
+			db.session.add(new_item)
+			db.session.commit()
+		except:
+			return "ERROR - COULD NOT ADD ITEM TO DATABASE"
 
 		return redirect("/")
-
-
 	
 
-# Default page
 @app.route("/warehouses", methods = ["POST", "GET"])  
 def warehouses_page():
-	global warehouse_entry_id
-
 	if request.method == "GET":
+		warehouses = db.session.query(Warehouse).all()
 		return render_template("warehouses.html", rows = warehouses)
+	
+	# User submitted an entry
 	elif request.method ==  "POST":
-		new_entry = {}
-		new_entry["id"] = warehouse_entry_id
-		warehouse_entry_id += 1
+		new_warehouse_name = request.form['w_name_input']
+		new_warehouse_city = request.form['city_input']
+		new_warehouse_state = request.form['state_input']
 
-		new_entry["name"] = request.form['w_name_input']
-		new_entry["city"] = request.form['city_input']
-		new_entry["state"] = request.form['state_input']
+		# Create the new database row - new_warehouse
+		new_warehouse = Warehouse(name = new_warehouse_name, city = new_warehouse_city, state = new_warehouse_state)
 
-		warehouses.append(new_entry)
+		# Add new warehouse to database
+		try:
+			db.session.add(new_warehouse)
+			db.session.commit()
+		except:
+			return "ERROR - COULD NOT ADD WAREHOUSE TO DATABASE"
 
 		return redirect("/warehouses")
-
 	
 
 if __name__ == "__main__":  

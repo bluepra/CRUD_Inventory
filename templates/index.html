@@ -7,7 +7,7 @@
 
     <!-- Form that lets the user add more entries -->
     <div class = "add_form">
-        <form action="", method="post">
+        <form action="/", method="post">
             <!-- <label for="item_input">Item:</label><br> -->
             <input type="text" id="item_input" name = "item_input" placeholder="Name"><br>
 
@@ -17,7 +17,7 @@
             <!-- <label for="price_input">Price:</label><br> -->
             <input type="text" id="price_input" name="price_input" placeholder="Price"><br><br>
             
-            <input type="submit" value="Add">
+            <input type="submit" value="Add Item">
           </form>
     </div>          
 
@@ -25,7 +25,7 @@
     <table class = "inventory-table" >
         <thead>
             <tr>
-                <th>ID</th>
+                <th>PID</th>
                 <th>Item</th>
                 <th>Quantity</th>
                 <th>Price ($)</th>
@@ -36,12 +36,12 @@
         <tbody>
             {% for row in rows %}
                 <tr>
-                    <td>{{row['id']}}</td>
-                    <td>{{row['item']}}</td>
+                    <td>{{row['pid']}}</td>
+                    <td>{{row['name']}}</td>
                     <td>{{row['quantity']}}</td>
                     <td>{{row['price']}}</td>
-                    <td><button class = "button" onclick="editClick()">Edit</button></td>
-                    <td><button class = "button" onclick="deleteClick()">Del</button></td>
+                    <td><button class = "button">Edit</button></td>
+                    <td><button class = "button">Del</button></td>
                 </tr>
             {% endfor %}
         </tbody>
