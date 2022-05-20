@@ -27,9 +27,15 @@ class Warehouse(db.Model):
 	def __repr__(self):
 		return f"Warehouse('{self.wid}', '{self.name}')"
 
-# Default page
-@app.route('/', methods = ["POST", "GET"])
-def inventory():
+# Default (Inventory) page
+@app.route("/", methods = ["POST", "GET"])
+def inventory_page():
+	"""
+    This function is used as the main page.
+	Used to show the inventory.
+	When users add an item using the form, the POST request is handled here as well
+    """ 
+
 	if request.method == "GET":
 		inventory = db.session.query(Item).all()
 		return render_template("index.html", rows = inventory)
@@ -51,8 +57,9 @@ def inventory():
 			return "ERROR - COULD NOT ADD ITEM TO DATABASE"
 
 		return redirect("/")
-	
 
+
+# Warehouse page
 @app.route("/warehouses", methods = ["POST", "GET"])  
 def warehouses_page():
 	if request.method == "GET":
@@ -76,6 +83,32 @@ def warehouses_page():
 			return "ERROR - COULD NOT ADD WAREHOUSE TO DATABASE"
 
 		return redirect("/warehouses")
+
+
+@app.route("/delete_item/<int:pid>", methods = ["POST", "GET"])
+def delete_item(pid):
+	item_to_remove = db.session.query(Item).get_or_404(pid)
+
+	try:
+		db.session.delete(item_to_remove)
+		db.session.commit()
+	except:
+		return f"Failed to delete item {pid}"
+	
+	return redirect("/")
+
+
+@app.route("/delete_warehouse/<int:wid>", methods = ["POST", "GET"])
+def delete_warehouse(wid):
+	warehouse_to_remove = db.session.query(Warehouse).get_or_404(wid)
+
+	try:
+		db.session.delete(warehouse_to_remove)
+		db.session.commit()
+	except:
+		return f"Failed to delete warehouse {wid}"
+	
+	return redirect("/warehouses")
 	
 
 if __name__ == "__main__":  

@@ -7,7 +7,7 @@
 
     <!-- Form that lets the user add more entries -->
     <div class = "add_form">
-        <form action="/", method="post">
+        <form action="/", method="POST">
             <!-- <label for="item_input">Item:</label><br> -->
             <input type="text" id="item_input" name = "item_input" placeholder="Name"><br>
 
@@ -40,8 +40,16 @@
                     <td>{{row['name']}}</td>
                     <td>{{row['quantity']}}</td>
                     <td>{{row['price']}}</td>
-                    <td><button class = "button">Edit</button></td>
-                    <td><button class = "button">Del</button></td>
+                    <td>
+                        <form action="/edit_item", method="POST">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete_item/{{row['pid']}}", method="POST">
+                            <input type="submit" value="Delete">
+                        </form></td>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>
