@@ -3,25 +3,30 @@
 {% block page_title %} <title>Warehouses</title> {% endblock %}
 
 {% block body %}
-<h1 class="title">PRANNAV'S WAREHOUSES</h1>
+    <h1 class="title">PRANNAV'S WAREHOUSES</h1>
 
-    <!-- Form that lets the user add more entries -->
     <div class = "form">
+        <!-- User can go back to inventory -->
+        <form action="/", method="GET">
+            <input type="submit" value="Back to Inventory"><br><br>
+        </form></td>
+
+         <!-- User can add more warehouses-->
         <form action="/warehouses", method="POST">
-            <!-- <label for="w_name_input">Name:</label><br> -->
+            <!-- Warehouse name input -->
             <input type="text" id="w_name_input" name = "w_name_input" placeholder="Name"><br>
 
-            <!-- <label for="city_input">City:</label><br> -->
+            <!-- City name input -->
             <input type="text" id="city_input" name="city_input" placeholder="City"><br>
 
-            <!-- <label for="state_input">State:</label><br> -->
+            <!-- State name input -->
             <input type="text" id="state_input" name="state_input" placeholder="State"><br><br>
             
             <input type="submit" value="Add Warehouse">
           </form>
     </div>          
 
-    <!-- Inventory Table with entries -->
+    <!-- Warehouse Table with entries -->
     <table class = "inventory-table" >
         <thead>
             <tr>
@@ -41,12 +46,12 @@
                     <td>{{row['city']}}</td>
                     <td>{{row['state']}}</td>
                     <td>
-                        <form action="/edit_warehouse", method="POST">
-                            <input type="submit" value="Edit">
+                        <form action="/edit_warehouse", method="GET">
+                            <input type="submit" value="Edit"><br>
                         </form>
                     </td>
                     <td>
-                        <form action="/delete_warehouse/{{row['wid']}}", method="POST">
+                        <form action="/delete_warehouse/{{row['wid']}}", method="GET">
                             <input type="submit" value="Delete">
                         </form></td>
                     </td>

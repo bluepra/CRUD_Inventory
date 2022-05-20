@@ -3,20 +3,38 @@
 {% block page_title %} <title>Inventory</title> {% endblock %}
 
 {% block body %}
-<h1 class="title">PRANNAV'S INVENTORY</h1>
+    <h1 class="title">PRANNAV'S INVENTORY</h1>
 
-    <!-- Form that lets the user add more entries -->
     <div class = "form">
+        <!-- User can view warehouses -->
+        <form action="/warehouses", method="GET">
+            <input type="submit" value="View/Add Warehouses"><br><br>
+        </form></td>
+        
+        <!-- Form to add new item -->
         <form action="/", method="POST">
-            <!-- <label for="item_input">Item:</label><br> -->
+            <!-- Item Name input -->
             <input type="text" id="item_input" name = "item_input" placeholder="Name"><br>
 
-            <!-- <label for="quantity_input">Quantity:</label><br> -->
+            <!-- Quantity input -->
             <input type="text" id="quantity_input" name="quantity_input" placeholder="Quantity"><br>
 
-            <!-- <label for="price_input">Price:</label><br> -->
-            <input type="text" id="price_input" name="price_input" placeholder="Price"><br><br>
+            <!-- Price input -->
+            <input type="text" id="price_input" name="price_input" placeholder="Price"><br>
+
+            <!-- Warehouse select input -->
+            <select id="warehouse_select" name="warehouse_select">
+                <option selected = true disabled = true>Select Warehouse</option>
+                {% if warehouses|length == 0 %}
+                    <option value = "no_warehouse">None</option>
+                {% else %}
+                    {% for warehouse in warehouses %}
+                        <option value = "{{warehouse['wid']}}, {{warehouse['name']}}">{{warehouse['name']}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select><br><br>
             
+            <!-- Button to add the item -->
             <input type="submit" value="Add Item">
           </form>
     </div>          

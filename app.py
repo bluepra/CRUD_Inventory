@@ -41,7 +41,8 @@ def inventory_page():
 
 	if request.method == "GET":
 		inventory = db.session.query(Item).all()
-		return render_template("index.html", rows = inventory)
+		warehouses = db.session.query(Warehouse).all()
+		return render_template("index.html", rows = inventory, warehouses = warehouses)
 	
 	# User submitted an entry
 	elif request.method ==  "POST":
