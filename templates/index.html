@@ -3,7 +3,7 @@
 {% block page_title %} <title>Inventory</title> {% endblock %}
 
 {% block body %}
-    <h1 class="title">PRANNAV'S INVENTORY</h1>
+    <h1 class="title">PRANNAV'S SNACK INVENTORY</h1>
 
     <div class = "form">
         <!-- User can view warehouses -->
@@ -24,12 +24,12 @@
 
             <!-- Warehouse select input -->
             <select id="warehouse_select" name="warehouse_select">
-                <option selected = true disabled = true>Select Warehouse</option>
+                <option selected = true>Select Warehouse</option>
                 {% if warehouses|length == 0 %}
                     <option value = "no_warehouse">None</option>
                 {% else %}
                     {% for warehouse in warehouses %}
-                        <option value = "{{warehouse['wid']}}, {{warehouse['name']}}">{{warehouse['name']}}</option>
+                        <option value = "warehouse_info">WID({{warehouse['wid']}}) {{warehouse['name']}}</option>
                     {% endfor %}
                 {% endif %}
             </select><br><br>
