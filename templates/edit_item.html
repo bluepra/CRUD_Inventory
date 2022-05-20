@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block page_title %} <title>Edit Item</title> {% endblock %}
+
+{% block body %}
+    <h1 class="title">PRANNAV'S INVENTORY</h1> 
+    <!-- <p>Trying to edit item {{pid}}</p> -->
+
+    <!-- Form that lets the user add more entries -->
+    <div class = "form">
+        <form>
+            <!-- <label for="item_input">Item:</label><br> -->
+            <input type="text" id="item_input" name = "item_input" placeholder="New Name"><br>
+
+            <!-- <label for="quantity_input">Quantity:</label><br> -->
+            <input type="text" id="quantity_input" name="quantity_input" placeholder="New Quantity"><br>
+
+            <!-- <label for="price_input">Price:</label><br> -->
+            <input type="text" id="price_input" name="price_input" placeholder="New Price"><br><br>
+            
+            <input type="submit" value="Edit Item">
+        </form>
+        <form action = "/" method = "GET">
+            <input type="submit" value="Cancel">
+        </form>
+    </div>  
+{% endblock %}
+
