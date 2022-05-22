@@ -1,7 +1,11 @@
+from tempfile import TemporaryFile
 from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+inventory = None
+warehouses = None
+
 
 # Database Link
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///data.db"
@@ -33,15 +37,17 @@ class Warehouse(db.Model):
 # Default (Inventory) page
 @app.route("/", methods = ["POST", "GET"])
 def inventory_page():
+	global inventory, warehouses
 	"""
     This function is used as the main page.
 	Used to show the inventory.
 	When users add an item using the form, the POST request is handled here as well
     """ 
 
+	inventory = db.session.query(Item).all()
+	warehouses = db.session.query(Warehouse).all()
+
 	if request.method == "GET":
-		inventory = db.session.query(Item).all()
-		warehouses = db.session.query(Warehouse).all()
 		return render_template("index.html", rows = inventory, warehouses = warehouses)
 	
 	# User submitted an entry
@@ -51,11 +57,6 @@ def inventory_page():
 		new_item_price = request.form['price_input']
 		new_item_warehouse = request.form['warehouse_select']
 
-		# print(type(new_item_name))
-		# print(type(new_item_quantity))
-		# print(type(new_item_price))
-		# print(type(new_item_warehouse), new_item_warehouse)
-
 		# Create the new database row - new_item
 		new_item = Item(name = new_item_name, quantity = new_item_quantity, price = new_item_price)
 
@@ -64,6 +65,7 @@ def inventory_page():
 			db.session.add(new_item)
 			db.session.commit()
 		except:
+			db.session.rollback()
 			error_msg = ""
 			if new_item_name == "":
 				error_msg = "PLEASE PROVIDE A NAME"
@@ -73,9 +75,10 @@ def inventory_page():
 				error_msg =  "PLEASE PROVIDE A PRICE"
 			else:
 				error_msg = "SOMETHING ELSE WENT WRONG WITH ADDING ITEM"
-			
-			return error_msg
 
+			return render_template("index.html", rows = inventory, 
+		warehouses = warehouses, message = error_msg)
+		
 		return redirect("/")
 
 
@@ -141,7 +144,28 @@ def delete_warehouse(wid):
 
 @app.route("/edit_item/<int:pid>", methods = ["POST", "GET"])
 def edit_item(pid):
-	return render_template("edit_item.html", pid = pid)
+	item_to_edit = db.session.query(Item).get_or_404(pid)
+
+	if request.method == "POST":
+		item_to_edit.name = request.form["item_input"]
+		item_to_edit.quantity = request.form["quantity_input"]
+		item_to_edit.price = request.form["price_input"]
+		# item_to_edit.warehouse_select = request.form["warehouse_select"]
+
+		try:
+			db.session.commit()
+		except:
+			return "ERROR UPDATING"
+		
+		return redirect("/")
+	else: 
+		# Get request
+		return render_template("edit_item.html", pid = pid)
+		
+
+		
+
+
 
 if __name__ == "__main__":  
 	app.run(debug = True)

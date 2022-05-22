@@ -6,9 +6,11 @@
     <h1 class="title">PRANNAV'S INVENTORY</h1> 
     <!-- <p>Trying to edit item {{pid}}</p> -->
 
-    <!-- Form that lets the user add more entries -->
+    <!-- Form that lets the user edit a existing entry -->
     <div class = "form">
-        <form>
+        <p class = "edit_top_message">Edit Item PID {{pid}}</p>
+
+        <form action = "/edit_item/{{pid}}" method = "POST">
             <!-- <label for="item_input">Item:</label><br> -->
             <input type="text" id="item_input" name = "item_input" placeholder="New Name"><br>
 
@@ -19,7 +21,7 @@
             <input type="text" id="price_input" name="price_input" placeholder="New Price"><br><br>
             
             <input type="submit" value="Edit Item">
-        </form>
+        </form><br>
         <form action = "/" method = "GET">
             <input type="submit" value="Cancel">
         </form>

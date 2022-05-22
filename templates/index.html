@@ -14,7 +14,7 @@
         <!-- Form to add new item -->
         <form action="/", method="POST">
             <!-- Item Name input -->
-            <input type="text" id="item_input" name = "item_input" placeholder="Name"><br>
+            <input type="text" id="item_input" name="item_input" placeholder="Name"><br>
 
             <!-- Quantity input -->
             <input type="text" id="quantity_input" name="quantity_input" placeholder="Quantity"><br>
@@ -35,9 +35,13 @@
             </select><br><br>
             
             <!-- Button to add the item -->
-            <input type="submit" value="Add Item">
+            <input type="submit" value="Add Item"><br>
           </form>
-    </div>          
+        
+        <!-- Used by message.html to show user a message -->
+        <!-- {% block message %}{% endblock %} -->
+        <p class="message">{{message}}</p>
+    </div>         
 
     <!-- Inventory Table with entries -->
     <table class = "inventory-table" >
