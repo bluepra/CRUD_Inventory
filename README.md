@@ -3,7 +3,7 @@
 ## Steps to run:
 1. Make sure python3 and sqlite is installed
 2. Run create.py to create the database file: python ./create.py
-3. Install flask and flask-sqlalchemy:  pip install Flask, pip install SQLAlchemy
+3. Install flask and flask-sqlalchemy: pip install Flask, pip install SQLAlchemy
 4. Run app.py: python ./app.py
 
 ## How to use the inventory:
