@@ -6,20 +6,25 @@
     <h1 class="title">PRANNAV'S SNACK INVENTORY</h1> 
     <p class = "edit_top_message">Edit Item PID {{item.pid}}</p>
 
-    <!-- Form that lets the user edit a existing entry -->
+    <!-- Form that lets the user edit a existing item entry -->
     <div class = "form">
         <form action = "/edit_item/{{item.pid}}" method = "POST">
-            <!-- <label for="item_input">Item:</label><br> -->
             <input type = "text" id="item_input" name = "item_input" 
             value="{{item.name}}" required><br>
 
-            <!-- <label for="quantity_input">Quantity:</label><br> -->
             <input type="number" id="quantity_input" name="quantity_input"
             value="{{item.quantity}}" required><br>
 
-            <!-- <label for="price_input">Price:</label><br> -->
             <input type="number" step="0.01" id="price_input" name="price_input"
             value="{{item.price}}" required><br><br>
+
+            <!-- Warehouse select input -->
+            <select id="warehouse_select" name="warehouse_select" required>
+                <option value="" selected hidden disabled>Select Warehouse</option>
+                {% for warehouse in warehouses %}
+                    <option value = "{{warehouse['wid']}}">WID({{warehouse['wid']}}) {{warehouse['name']}}</option>
+                {% endfor %}
+            </select><br><br>
             
             <input type="submit" value="Edit Item">
         </form><br>

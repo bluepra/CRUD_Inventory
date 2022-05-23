@@ -2,6 +2,8 @@ from flask import Flask, redirect, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+
+# Global variables
 inventory = None
 warehouses = None
 
@@ -35,13 +37,12 @@ class Item(db.Model):
 	name = db.Column(db.String(100), nullable = False) # Item Name
 	quantity = db.Column(db.Integer, nullable = False) # Quantity
 	price = db.Column(db.Float, nullable = False) # Price of item
-	warehouse_id = db.Column(db.Integer, nullable = False)
+	warehouse_id = db.Column(db.Integer, nullable = False) # WID of the warehouse this item is stored in
 
 	# warehouse_id = db.Column(db.Integer, db.ForeignKey('warehouse.wid', ondelete="CASCADE"))
 
 	def __repr__(self):
 		return f"Item('{self.pid}', '{self.name}')"
-
 
 
 # Default (Inventory) page
@@ -57,16 +58,11 @@ def inventory_page():
 	inventory = db.session.query(Item).all()
 	warehouses = db.session.query(Warehouse).all()
 
-	if request.method == "GET":
-		return render_template("index.html", rows = inventory, warehouses = warehouses)
-	
-	# User submitted an entry
-	elif request.method ==  "POST":
+	if request.method == "POST":
 		new_item_name = request.form['item_input'].strip()
 		new_item_quantity = request.form['quantity_input'].strip()
 		new_item_price = request.form['price_input'].strip()
 		if "warehouse_select" not in request.form.keys():
-			print("\nPROBLEM!!!!!!!\n")
 			error_msg = "Please select a valid WID"
 			render_template("index.html", rows = inventory, 
 									warehouses = warehouses, message = error_msg)
@@ -97,17 +93,19 @@ def inventory_page():
 									warehouses = warehouses, message = error_msg)
 		
 		return redirect("/")
-
+	# Get request
+	else:
+		return render_template("index.html", rows = inventory, warehouses = warehouses)
+		
 
 # Warehouse page
 @app.route("/warehouses", methods = ["POST", "GET"])  
 def warehouses_page():
-	if request.method == "GET":
-		warehouses = db.session.query(Warehouse).all()
-		return render_template("warehouses.html", rows = warehouses)
-	
-	# User submitted an entry
-	elif request.method ==  "POST":
+	"""
+    This function is used to show the warehouses
+	When users add a warehouse using the form, the POST request is handled here as well
+    """ 
+	if request.method == "POST":
 		new_warehouse_name = request.form['w_name_input']
 		new_warehouse_city = request.form['city_input']
 		new_warehouse_state = request.form['state_input']
@@ -123,10 +121,17 @@ def warehouses_page():
 			return "ERROR - COULD NOT ADD WAREHOUSE TO DATABASE"
 
 		return redirect("/warehouses")
-
+	# User submitted an entry
+	else:
+		warehouses = db.session.query(Warehouse).all()
+		return render_template("warehouses.html", rows = warehouses)
+		
 
 @app.route("/delete_item/<int:pid>")
 def delete_item(pid):
+	"""
+    This function is used to delete an existing item from the inventory
+    """ 
 	item_to_remove = db.session.query(Item).get_or_404(pid)
 
 	try:
@@ -140,6 +145,9 @@ def delete_item(pid):
 
 @app.route("/delete_warehouse/<int:wid>")
 def delete_warehouse(wid):
+	"""
+    This function is used to delete an existing warehouse
+    """ 
 	warehouse_to_remove = db.session.query(Warehouse).get_or_404(wid)
 	inventory = db.session.query(Item).all()
 
@@ -153,7 +161,7 @@ def delete_warehouse(wid):
 				db.session.commit()
 			except:
 				return f"Failed to delete item {pid}"
-				
+
 	try:
 		db.session.delete(warehouse_to_remove)
 		db.session.commit()
@@ -165,13 +173,16 @@ def delete_warehouse(wid):
 
 @app.route("/edit_item/<int:pid>", methods = ["POST", "GET"])
 def edit_item(pid):
+	"""
+    This function is used to edit an existing item's values.
+    """ 
 	item_to_edit = db.session.query(Item).get_or_404(pid)
 
 	if request.method == "POST":
 		item_to_edit.name = request.form["item_input"].strip()
 		item_to_edit.quantity = request.form["quantity_input"].strip()
 		item_to_edit.price = request.form["price_input"].strip()
-		# item_to_edit.warehouse_select = request.form["warehouse_select"]
+		item_to_edit.warehouse_id = request.form["warehouse_select"]
 
 		try:
 			db.session.commit()
@@ -181,11 +192,14 @@ def edit_item(pid):
 		return redirect("/")
 	else: 
 		# Get request
-		return render_template("edit_item.html", item = item_to_edit)
+		return render_template("edit_item.html", item = item_to_edit, warehouses = warehouses)
 
 
 @app.route("/edit_warehouse/<int:wid>", methods = ["POST", "GET"])
 def edit_warehouse(wid):
+	"""
+    This function is used to edit an existing warehosues's values.
+    """ 
 	warehouse_to_edit = db.session.query(Warehouse).get_or_404(wid)
 
 	if request.method == "POST":
@@ -202,6 +216,7 @@ def edit_warehouse(wid):
 	else: 
 		# Get request
 		return render_template("edit_warehouse.html", warehouse = warehouse_to_edit)
+
 
 if __name__ == "__main__":  
 	app.run(debug = True)

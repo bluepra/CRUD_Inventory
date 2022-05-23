@@ -6,18 +6,15 @@
     <h1 class="title">PRANNAV'S SNACK WAREHOUSES</h1> 
     <p class = "edit_top_message">Edit Warehouse WID {{warehouse.wid}}</p>
 
-    <!-- Form that lets the user edit a existing entry -->
+    <!-- Form that lets the user edit a existing warehouse entry -->
     <div class = "form">
         <form action = "/edit_warehouse/{{warehouse.wid}}" method = "POST">
-            <!-- <label for="item_input">Item:</label><br> -->
             <input id="w_name_input" name = "w_name_input" 
             value="{{warehouse.name}}" required><br>
 
-            <!-- <label for="quantity_input">Quantity:</label><br> -->
             <input type="text" id="city_input" name="city_input"
             value="{{warehouse.city}}" required><br>
 
-            <!-- <label for="price_input">Price:</label><br> -->
             <input type="text" id="state_input" name="state_input"
             value="{{warehouse.state}}" required><br><br>
             
