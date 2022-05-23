@@ -1,10 +1,10 @@
 # Shopify Backend Intern 2022 Challenge
 
 ## Steps to run:
-1. Make sure python3 and sqlite is installed
-2. Run create.py to create the database file: python ./create.py
+1. Make sure python3 is installed
+2. (ONLY IF .db FILE IS MISSING) Run create_db.py to create the database file: python ./create_db.py
 3. Install flask and flask-sqlalchemy: pip install Flask, pip install Flask-SQLAlchemy
-4. Run app.py: python ./app.py
+4. Run app.py or hit the green "Run" button on Replit: python ./app.py
 5. Please click the "Open in a new tab" button in the top right browser window (seems to work better).
 
 ## How to use the inventory:
