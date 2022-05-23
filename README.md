@@ -5,6 +5,7 @@
 2. Run create.py to create the database file: python ./create.py
 3. Install flask and flask-sqlalchemy: pip install Flask, pip install Flask-SQLAlchemy
 4. Run app.py: python ./app.py
+5. Please click the "Open in a new tab" button in the top right browser window (seems to work better).
 
 ## How to use the inventory:
 1. Click the Add/Edit Warehouse button to add a warehouse
