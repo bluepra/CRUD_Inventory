@@ -1,11 +1,19 @@
 # Shopify Backend Intern 2022 Challenge
 
-## Steps to run:
-1. Make sure python3 is installed
+## Replit Steps:
+1. Run pip install Flask-SQLAlchemy in the console or shell
 2. (ONLY IF .db FILE IS MISSING) Run create_db.py to create the database file: python ./create_db.py
-3. Install flask and flask-sqlalchemy: pip install Flask, pip install Flask-SQLAlchemy
-4. Run app.py or hit the green "Run" button on Replit: python ./app.py
-5. Please click the "Open in a new tab" button in the top right browser window (seems to work better).
+3. Run app.py or hit the green "Run" button on Replit: python ./app.py
+6. Please click the "Open in a new tab" button in the top right browser window (seems to work better).
+   
+## Git clone steps:
+1. Make sure python3 is installed
+2. Clone the repo: git clone https://github.com/bluepra/shopify-backend-challenge.git
+3. Go to the project folder in the terminal
+4. (ONLY IF .db FILE IS MISSING) Run create_db.py to create the database file: python ./create_db.py
+5. Install flask and flask-sqlalchemy: pip install Flask, pip install Flask-SQLAlchemy
+6. Run app.py: python ./app.py
+7. Click on the link that the terminal shows which should open your browser
 
 ## How to use the inventory:
 1. Click the Add/Edit Warehouse button to add a warehouse
