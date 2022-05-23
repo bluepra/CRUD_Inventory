@@ -1,1 +1,2 @@
 pip install Flask-SQLAlchemy
+python create_db.py
