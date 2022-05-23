@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block page_title %} <title>Edit Warehouse</title> {% endblock %}
+
+{% block body %}
+    <h1 class="title">PRANNAV'S SNACK WAREHOUSES</h1> 
+    <p class = "edit_top_message">Edit Warehouse WID {{warehouse.wid}}</p>
+
+    <!-- Form that lets the user edit a existing entry -->
+    <div class = "form">
+        <form action = "/edit_warehouse/{{warehouse.wid}}" method = "POST">
+            <!-- <label for="item_input">Item:</label><br> -->
+            <input id="w_name_input" name = "w_name_input" 
+            value="{{warehouse.name}}" required><br>
+
+            <!-- <label for="quantity_input">Quantity:</label><br> -->
+            <input type="text" id="city_input" name="city_input"
+            value="{{warehouse.city}}" required><br>
+
+            <!-- <label for="price_input">Price:</label><br> -->
+            <input type="text" id="state_input" name="state_input"
+            value="{{warehouse.state}}" required><br><br>
+            
+            <input type="submit" value="Edit Warehouse">
+        </form><br>
+        <form action = "/warehouses" method = "GET">
+            <input type="submit" value="Cancel">
+        </form>
+    </div>  
+{% endblock %}
+

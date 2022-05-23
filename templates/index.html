@@ -14,29 +14,31 @@
         <!-- Form to add new item -->
         <form action="/", method="POST">
             <!-- Item Name input -->
-            <input type="text" id="item_input" name="item_input" placeholder="Name"><br>
+            <input type="text" id="item_input" name="item_input" placeholder="Name" required><br>
 
             <!-- Quantity input -->
-            <input type="text" id="quantity_input" name="quantity_input" placeholder="Quantity"><br>
+            <input type="number" id="quantity_input" name="quantity_input" 
+            placeholder="Quantity" required><br>
 
             <!-- Price input -->
-            <input type="text" id="price_input" name="price_input" placeholder="Price"><br>
+            <input type="number" step="0.01" id="price_input" name="price_input" 
+            placeholder="Price" required type = "number"><br>
 
             <!-- Warehouse select input -->
-            <select id="warehouse_select" name="warehouse_select">
-                <option selected = true>Select Warehouse</option>
+            <select id="warehouse_select" name="warehouse_select" required>
+                <option value="" selected hidden disabled>Select Warehouse</option>
                 {% if warehouses|length == 0 %}
-                    <option value = "no_warehouse">None</option>
+                    <!-- <option value = "no_warehouse" hidden disabled>None</option> -->
                 {% else %}
                     {% for warehouse in warehouses %}
-                        <option value = "warehouse_info">WID({{warehouse['wid']}}) {{warehouse['name']}}</option>
+                        <option value = "{{warehouse['wid']}}">WID({{warehouse['wid']}}) {{warehouse['name']}}</option>
                     {% endfor %}
                 {% endif %}
             </select><br><br>
             
             <!-- Button to add the item -->
             <input type="submit" value="Add Item"><br>
-          </form>
+        </form>
         
         <!-- Used by message.html to show user a message -->
         <!-- {% block message %}{% endblock %} -->
@@ -51,6 +53,7 @@
                 <th>Item</th>
                 <th>Quantity</th>
                 <th>Price ($)</th>
+                <th>WID</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -62,6 +65,7 @@
                     <td>{{row['name']}}</td>
                     <td>{{row['quantity']}}</td>
                     <td>{{row['price']}}</td>
+                    <td>{{row['warehouse_id']}}</td>
                     <td>
                         <form action="/edit_item/{{row['pid']}}", method="GET">
                             <input type="submit" value="Edit">

@@ -3,22 +3,23 @@
 {% block page_title %} <title>Edit Item</title> {% endblock %}
 
 {% block body %}
-    <h1 class="title">PRANNAV'S INVENTORY</h1> 
-    <!-- <p>Trying to edit item {{pid}}</p> -->
+    <h1 class="title">PRANNAV'S SNACK INVENTORY</h1> 
+    <p class = "edit_top_message">Edit Item PID {{item.pid}}</p>
 
     <!-- Form that lets the user edit a existing entry -->
     <div class = "form">
-        <p class = "edit_top_message">Edit Item PID {{pid}}</p>
-
-        <form action = "/edit_item/{{pid}}" method = "POST">
+        <form action = "/edit_item/{{item.pid}}" method = "POST">
             <!-- <label for="item_input">Item:</label><br> -->
-            <input type="text" id="item_input" name = "item_input" placeholder="New Name"><br>
+            <input type = "text" id="item_input" name = "item_input" 
+            value="{{item.name}}" required><br>
 
             <!-- <label for="quantity_input">Quantity:</label><br> -->
-            <input type="text" id="quantity_input" name="quantity_input" placeholder="New Quantity"><br>
+            <input type="number" id="quantity_input" name="quantity_input"
+            value="{{item.quantity}}" required><br>
 
             <!-- <label for="price_input">Price:</label><br> -->
-            <input type="text" id="price_input" name="price_input" placeholder="New Price"><br><br>
+            <input type="number" step="0.01" id="price_input" name="price_input"
+            value="{{item.price}}" required><br><br>
             
             <input type="submit" value="Edit Item">
         </form><br>

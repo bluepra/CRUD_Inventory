@@ -14,13 +14,13 @@
          <!-- User can add more warehouses-->
         <form action="/warehouses", method="POST">
             <!-- Warehouse name input -->
-            <input type="text" id="w_name_input" name = "w_name_input" placeholder="Name"><br>
+            <input type="text" id="w_name_input" name = "w_name_input" placeholder="Name" required><br>
 
             <!-- City name input -->
-            <input type="text" id="city_input" name="city_input" placeholder="City"><br>
+            <input type="text" id="city_input" name="city_input" placeholder="City" required><br>
 
             <!-- State name input -->
-            <input type="text" id="state_input" name="state_input" placeholder="State"><br><br>
+            <input type="text" id="state_input" name="state_input" placeholder="State" required><br><br>
             
             <input type="submit" value="Add Warehouse">
           </form>
@@ -46,7 +46,7 @@
                     <td>{{row['city']}}</td>
                     <td>{{row['state']}}</td>
                     <td>
-                        <form action="/edit_warehouse", method="GET">
+                        <form action="/edit_warehouse/{{row['wid']}}", method="GET">
                             <input type="submit" value="Edit"><br>
                         </form>
                     </td>
