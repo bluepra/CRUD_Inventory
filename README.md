@@ -1,6 +1,6 @@
 # Shopify Backend Intern 2022 Challenge
 
-## Replit Steps:
+## Replit Steps (OR watch on https://youtu.be/5l3z72WRLpQ):
 1. Type and enter in the shell/console: bash dependencies
 2. Run app.py (python ./app.py) or hit the green "Run" button on Replit.
 3. Please click the "Open in a new tab" button in the top right browser window (seems to work better).
