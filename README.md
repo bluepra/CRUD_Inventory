@@ -1,4 +1,4 @@
-# Shopify Backend Intern 2022 Challenge
+# CRUD Inventory Website
 
 ## Replit Steps (OR watch on https://youtu.be/5l3z72WRLpQ):
 1. Type and enter in the shell/console: bash dependencies
